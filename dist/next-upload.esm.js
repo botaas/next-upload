@@ -390,7 +390,7 @@ var sanitizeKey = function sanitizeKey(value) {
 var makeRouteHandler = function makeRouteHandler(optionsFetcher) {
   var route = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(request) {
-      var _yield$request$json, strategy, filename, type, options, key, bucket, region, endpoint, client, params, url, stsConfig, policy, sts, command, token;
+      var _yield$request$json, strategy, filename, filetype, options, key, bucket, region, endpoint, client, params, url, stsConfig, policy, sts, command, token;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
@@ -400,7 +400,7 @@ var makeRouteHandler = function makeRouteHandler(optionsFetcher) {
             _yield$request$json = _context.sent;
             strategy = _yield$request$json.strategy;
             filename = _yield$request$json.filename;
-            type = _yield$request$json.type;
+            filetype = _yield$request$json.filetype;
             if (optionsFetcher) {
               _context.next = 8;
               break;
@@ -444,7 +444,7 @@ var makeRouteHandler = function makeRouteHandler(optionsFetcher) {
             params = {
               Bucket: bucket,
               Key: key,
-              ContentType: type,
+              ContentType: filetype,
               CacheControl: 'max-age=630720000'
             };
             _context.next = 27;

@@ -19,8 +19,7 @@ type OptionsFetcher = (request: NextRequest) => Promise<Options>;
 
 const makeRouteHandler = (optionsFetcher?: OptionsFetcher) => {
   const route = async function (request: NextRequest) {    
-    const { strategy, filename, type } = await request.json();
-  
+    const { strategy, filename, filetype } = await request.json();
     if (!optionsFetcher) {
       return new Response("S3 Upload: Missing config", { status: 400 })
     }
@@ -39,7 +38,7 @@ const makeRouteHandler = (optionsFetcher?: OptionsFetcher) => {
       const params = {
         Bucket: bucket,
         Key: key,
-        ContentType: type,
+        ContentType: filetype,
         CacheControl: 'max-age=630720000',
       }
 
