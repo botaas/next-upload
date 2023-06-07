@@ -20,6 +20,7 @@ type OptionsFetcher = (request: NextRequest) => Promise<Options>;
 const makeRouteHandler = (optionsFetcher?: OptionsFetcher) => {
   const route = async function (request: NextRequest) {    
     const { strategy, filename, filetype } = await request.json();
+console.log('filetype: ', filetype)
     if (!optionsFetcher) {
       return new Response("S3 Upload: Missing config", { status: 400 })
     }

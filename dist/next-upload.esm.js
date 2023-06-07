@@ -401,43 +401,44 @@ var makeRouteHandler = function makeRouteHandler(optionsFetcher) {
             strategy = _yield$request$json.strategy;
             filename = _yield$request$json.filename;
             filetype = _yield$request$json.filetype;
+            console.log('filetype: ', filetype);
             if (optionsFetcher) {
-              _context.next = 8;
+              _context.next = 9;
               break;
             }
             return _context.abrupt("return", new Response("S3 Upload: Missing config", {
               status: 400
             }));
-          case 8:
-            _context.next = 10;
+          case 9:
+            _context.next = 11;
             return optionsFetcher(request);
-          case 10:
+          case 11:
             options = _context.sent;
             if (options) {
-              _context.next = 13;
+              _context.next = 14;
               break;
             }
             return _context.abrupt("return", new Response("S3 Upload: No config fetched", {
               status: 400
             }));
-          case 13:
+          case 14:
             if (!options.key) {
-              _context.next = 19;
+              _context.next = 20;
               break;
             }
-            _context.next = 16;
+            _context.next = 17;
             return Promise.resolve(options.key(request, filename));
-          case 16:
+          case 17:
             _context.t0 = _context.sent;
-            _context.next = 20;
+            _context.next = 21;
             break;
-          case 19:
-            _context.t0 = "uploads/" + uuid() + "/" + sanitizeKey(filename);
           case 20:
+            _context.t0 = "uploads/" + uuid() + "/" + sanitizeKey(filename);
+          case 21:
             key = _context.t0;
             bucket = options.bucket, region = options.region, endpoint = options.endpoint;
             if (!(strategy === 'presigned')) {
-              _context.next = 31;
+              _context.next = 32;
               break;
             }
             client = getClient(options);
@@ -447,11 +448,11 @@ var makeRouteHandler = function makeRouteHandler(optionsFetcher) {
               ContentType: filetype,
               CacheControl: 'max-age=630720000'
             };
-            _context.next = 27;
+            _context.next = 28;
             return getSignedUrl(client, new PutObjectCommand(params), {
               expiresIn: 60 * 60
             });
-          case 27:
+          case 28:
             url = _context.sent;
             return _context.abrupt("return", NextResponse.json({
               key: key,
@@ -460,7 +461,7 @@ var makeRouteHandler = function makeRouteHandler(optionsFetcher) {
               endpoint: endpoint,
               url: url
             }));
-          case 31:
+          case 32:
             stsConfig = {
               credentials: {
                 accessKeyId: options.accessKeyId,
@@ -482,9 +483,9 @@ var makeRouteHandler = function makeRouteHandler(optionsFetcher) {
               Policy: JSON.stringify(policy),
               DurationSeconds: 60 * 60
             });
-            _context.next = 37;
+            _context.next = 38;
             return sts.send(command);
-          case 37:
+          case 38:
             token = _context.sent;
             return _context.abrupt("return", NextResponse.json({
               token: token,
@@ -492,7 +493,7 @@ var makeRouteHandler = function makeRouteHandler(optionsFetcher) {
               bucket: bucket,
               region: region
             }));
-          case 39:
+          case 40:
           case "end":
             return _context.stop();
         }
