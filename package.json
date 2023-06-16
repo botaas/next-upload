@@ -23,7 +23,7 @@
     "next": ">=9.4",
     "react": ">=16"
   },
-  "name": "next-upload",
+  "name": "@openbot/next-upload",
   "author": "Edison <edison@openbot.chat>",
   "module": "dist/next-upload.esm.js",
   "size-limit": [
